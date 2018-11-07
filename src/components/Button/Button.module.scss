@@ -1,0 +1,24 @@
+        /*! Stil för knappen */
+        .contact__form {
+            &Submit {
+                margin-top: 3rem;
+                cursor: pointer;
+                border: 2px solid transparent;
+                border-radius: 5px;
+                padding: 1.5rem 3.5rem;
+                width: 40%;
+                font-family: inherit;
+                font-size: 1.7rem;
+                color: #FEFEFE;
+                background-color: teal;
+                transition: all .3s;
+            }
+    
+            &Submit:hover {
+                background-color: #FEFEFE;
+                color: teal;
+                border: 2px solid teal;
+                /*! Gör den lite större i hover-läge */
+                transform: scale(1.05);
+            }
+        }
