@@ -18,25 +18,145 @@ class App extends Component {
     userInfo: {
       name: '',
       email: '',
-      password: ''
+      password: '', 
+      country: '', 
+      city: '', 
+      profession: ''
     }, 
     currentStep: 1
   };
 
-  grabInfoHandler = (name, email, password) => {
-    console.log(name, email, password);
-    this.setState({userInfo: {
-      name: name, 
-      email: email, 
-      password: password
-    }});
-    //event.preventDefault();
+  grabInputHandler = (event) => {
+    let savedValue = event.target.value;
+    switch (event.target.id) {
+      case ('name'): {
+        this.setState((prevState, props) => {
+          return {userInfo: {
+            name: savedValue,
+            email: prevState.userInfo.email,
+            password: prevState.userInfo.password, 
+            country: prevState.userInfo.country, 
+            city: prevState.userInfo.city, 
+            profession: prevState.userInfo.profession
+            }
+          }
+        });
+        break;
+      }
+      case ('email'): {
+        this.setState((prevState, props) => {
+          return {userInfo: {
+            name: prevState.userInfo.name,
+            email: savedValue,
+            password: prevState.userInfo.password, 
+            country: prevState.userInfo.country, 
+            city: prevState.userInfo.city, 
+            profession: prevState.userInfo.profession
+            }
+          }
+        });
+        break;
+      }
+      case ('password'): {
+        this.setState((prevState, props) => {
+          return {userInfo: {
+            name: prevState.userInfo.name,
+            email: prevState.userInfo.email,
+            password: savedValue, 
+            country: prevState.userInfo.country, 
+            city: prevState.userInfo.city, 
+            profession: prevState.userInfo.profession
+            }
+          }
+        });
+        break;
+      }
+      case ('country'): {
+        this.setState((prevState, props) => {
+          return {userInfo: {
+            name: prevState.userInfo.name,
+            email: prevState.userInfo.email,
+            password: prevState.userInfo.password, 
+            country: savedValue, 
+            city: prevState.userInfo.city, 
+            profession: prevState.userInfo.profession
+            }
+          }
+        });
+        break;
+      }
+      case ('city'): {
+        this.setState((prevState, props) => {
+          return {userInfo: {
+            name: prevState.userInfo.name,
+            email: prevState.userInfo.email,
+            password: prevState.userInfo.password, 
+            country: prevState.userInfo.country, 
+            city: savedValue, 
+            profession: prevState.userInfo.profession
+            }
+          }
+        });
+        break;
+      }
+      case ('profession'): {
+        this.setState((prevState, props) => {
+          return {userInfo: {
+            name: prevState.userInfo.name,
+            email: prevState.userInfo.email,
+            password: prevState.userInfo.password, 
+            country: prevState.userInfo.country, 
+            city: prevState.userInfo.city, 
+            profession: savedValue
+            }
+          }
+        });
+        break;
+      }
+      default: {
+        break;
+      }
+    }
+}
+
+changeStepHandler = (step) => {
+  if (step === 'Continue') {
+    this.setState((prevState, props) => {
+      return {currentStep: prevState.currentStep + 1};
+    })
+  } else if (step === 'Back') {
+    console.log('we went back');
+    this.setState((prevState, props) => {
+      return {currentStep: prevState.currentStep - 1};
+    })
   }
+}
+
+/*
+  grabInfoHandler = (name, email, password, type) => {
+    if (type === 'Continue') {
+      this.setState((prevState, props) => {
+        return {
+          userInfo: {
+          name: name, 
+          email: email, 
+          password: password
+        }, 
+        currentStep: prevState.currentStep + 1}
+      });
+      //event.preventDefault();
+    } else if (type === 'Back') {
+      this.setState((prevState, props) => {
+        return {currentStep: prevState.currentStep - 1}
+      });
+    }
+  }
+  */
 
   render() {
     return (
       <div className="App">
-        <ContactBox currentStep={this.state.currentStep} submitted={this.grabInfoHandler} />
+        <ContactBox userInfo={this.state.userInfo} currentStep={this.state.currentStep} changedInfo={this.grabInputHandler} changedStep={this.changeStepHandler} />
       </div>
     );
   }

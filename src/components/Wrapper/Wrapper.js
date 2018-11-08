@@ -9,8 +9,6 @@ const wrapper = (props) => {
         classes.push(styles.WrapperCenterized);
     }
 
-    console.log(classes);
-
     return (
     <div className={classes.join(' ')}>{props.children}</div>
     );
