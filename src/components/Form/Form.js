@@ -11,6 +11,8 @@ class Form extends Component {
     };
 
     render () {
+        let errorMessage = null;
+
         // Make it a switch statement: and don't forget to pass the value of the button
         let buttons = (
             <Fragment>
@@ -34,6 +36,15 @@ class Form extends Component {
                 <input onChange={(event) => this.props.changedInfo(event)} type="password" id="password" className={styles.contact__formMsginput} placeholder="Choose your preferred password..." value={this.props.userInfo.password} required />
             </Fragment>
             );
+            if (this.props.error) {
+                if (!this.props.userInfo.name || !this.props.userInfo.email) {
+                 errorMessage = <h3 style={{color: 'red', fontSize: '20px', width: '100%', textAlign: 'center'}}>Please fill all fields.</h3>;
+                } else if (this.props.userInfo.password.length <= 5) {
+                 errorMessage = <h3 style={{color: 'red', fontSize: '20px', width: '100%', textAlign: 'center'}}>The password has to be at least six characters.</h3>;
+                }
+             } else {
+                 errorMessage = null;
+             }
                 break;
             }
 
@@ -48,6 +59,13 @@ class Form extends Component {
                         <input onChange={(event) => this.props.changedInfo(event)} type="text" id="profession" className={styles.contact__formMsginput} placeholder="What is your profession?" value={this.props.userInfo.profession} required />
                     </Fragment>
                     );
+                    if (this.props.error) {
+                        if (!this.props.userInfo.country || !this.props.userInfo.city || !this.props.userInfo.profession) {
+                         errorMessage = <h3 style={{color: 'red', fontSize: '20px', width: '100%', textAlign: 'center'}}>Please fill all fields.</h3>;
+                        }
+                     } else {
+                         errorMessage = null;
+                     }
                 break;
             }
 
@@ -97,11 +115,6 @@ class Form extends Component {
             default: {
                 break;
             }
-        }
-
-        let errorMessage = null;
-        if (this.props.error) {
-          errorMessage = <h3 style={{color: 'red', fontSize: '20px', width: '100%', textAlign: 'center'}}>Please fill all fields.</h3>;
         }
 
         return (

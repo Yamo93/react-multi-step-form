@@ -17,22 +17,17 @@
         font-size: 1.5rem;
 
         /*! Ändrar storlek på formulär i mindre skärmar */
-        @media screen and (max-width: 560px) {
-            min-width: 450px;
-        }
-        @media screen and (max-width: 560px) {
-            min-width: 450px;
-        }
-
-        @media screen and (max-width: 460px) {
-            width: 90%;
-            padding: 3rem 6rem;
+        @media screen and (max-width: 630px) {
             min-width: 350px;
         }
 
-        @media screen and (max-width: 350px) {
+        @media screen and (max-width: 460px) {
+            padding: 3rem 2rem;
+            padding-right: 0;
+        }
+
+        @media screen and (max-width: 400px) {
             min-width: 300px;
-            padding: 3rem 4rem;
         }
 
         /*! Stil för labels och inputs */
@@ -54,6 +49,13 @@
             font-size: 1.8rem;
             margin-bottom: 2rem;
             transition: all .6s;
+            @media screen and (max-width: 530px) {
+                width: 80%;
+            }
+
+            @media screen and (max-width: 410px) {
+                width: 87%;
+            }
         }
 
         &Nameinput:focus,

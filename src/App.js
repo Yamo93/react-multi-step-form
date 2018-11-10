@@ -13,7 +13,8 @@ import ContactBox from './components/ContactBox/ContactBox';
   * - add an error message if user tries to continue without filling forms (plain red bold big-sized text at the top) => DONE
   * add validation so that it cannot continue without all fields filled in => DONE :D
   * add step tracker => DONE 100% :D
-  * add some simple responsivity for the smaller screens
+  * add some simple responsivity for the smaller screens => DONE
+  * maybe set some password validation (at least 6 characters) => DONE
   * 
   * SUGGESTIONS:
   * - add Firebase to the backend so the data is really submitted and presented, add a spinner when submitting it.
@@ -134,7 +135,7 @@ changeStepHandler = (type, step) => {
   if (type === 'Continue' && step === 1) {
     if (this.state.userInfo.name && 
         this.state.userInfo.email && 
-        this.state.userInfo.password) {
+        this.state.userInfo.password.length >= 6) {
           this.setState((prevState, props) => {
             return {error: false, currentStep: prevState.currentStep + 1};
           })
@@ -163,26 +164,6 @@ changeStepHandler = (type, step) => {
   }
 }
 
-/*
-  grabInfoHandler = (name, email, password, type) => {
-    if (type === 'Continue') {
-      this.setState((prevState, props) => {
-        return {
-          userInfo: {
-          name: name, 
-          email: email, 
-          password: password
-        }, 
-        currentStep: prevState.currentStep + 1}
-      });
-      //event.preventDefault();
-    } else if (type === 'Back') {
-      this.setState((prevState, props) => {
-        return {currentStep: prevState.currentStep - 1}
-      });
-    }
-  }
-  */
 
   render() {
     return (
