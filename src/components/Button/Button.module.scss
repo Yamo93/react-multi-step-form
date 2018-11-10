@@ -21,4 +21,15 @@
                 /*! Gör den lite större i hover-läge */
                 transform: scale(1.05);
             }
+
+            &SubmitOrange {
+                background-color: rgb(209, 127, 19);
+                color: #FEFEFE;
+            }
+
+            &SubmitOrange:hover {
+                background-color: #FEFEFE;
+                color: rgb(240, 161, 14);
+                border: 2px solid rgb(240, 161, 14);
+            }
         }

@@ -99,8 +99,14 @@ class Form extends Component {
             }
         }
 
+        let errorMessage = null;
+        if (this.props.error) {
+          errorMessage = <h3 style={{color: 'red', fontSize: '20px', width: '100%', textAlign: 'center'}}>Please fill all fields.</h3>;
+        }
+
         return (
             <div className={styles.contact__form}>
+            {errorMessage}
             {inputs}
             {confirmation}
             <Wrapper currentStep={this.props.currentStep}>

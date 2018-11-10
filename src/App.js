@@ -6,10 +6,11 @@ import ContactBox from './components/ContactBox/ContactBox';
   * TODOS:
   * - you have to create state: for saving the current step, as well as saving the inputs. => 60% DONE. I managed to save the inputs in the global state. Now I have to save the current step too, and render new inputs for the second step => DONE!!!
   * - render the button styling/amount of buttons/text on buttons depending on the step => DONE!!!
-  * - add the third step which shows all the user info (confirmation step). It should only have one button "Submit" or something. 
+  * - add the third step which shows all the user info (confirmation step). It should only have one button "Submit" or something.  => DONE
   * 
-  * - the fourth step should be showing a success message.
-  * - the Back button should have a special color (orangish)
+  * - the fourth step should be showing a success message. => DONE
+  * - the Back button should have a special color (orangish) => DONE
+  * - add an error message if user tries to continue without filling forms (with a set Interval maybe, plain red bold big-sized text at the top) => DONE
   * add validation so that it cannot continue without all fields filled in => DONE :D
   * 
   * SUGGESTIONS:
@@ -30,7 +31,8 @@ class App extends Component {
       city: '', 
       profession: ''
     }, 
-    currentStep: 1
+    currentStep: 1, 
+    error: false
   };
 
   grabInputHandler = (event) => {
@@ -132,25 +134,29 @@ changeStepHandler = (type, step) => {
         this.state.userInfo.email && 
         this.state.userInfo.password) {
           this.setState((prevState, props) => {
-            return {currentStep: prevState.currentStep + 1};
+            return {error: false, currentStep: prevState.currentStep + 1};
           })
+        } else {
+          this.setState({error: true});
         }
   } else if (type === 'Continue' && step === 2) {
     if (this.state.userInfo.country && 
       this.state.userInfo.city && 
       this.state.userInfo.profession) {
         this.setState((prevState, props) => {
-          return {currentStep: prevState.currentStep + 1};
+          return {error: false, currentStep: prevState.currentStep + 1};
         })
+      }  else {
+        this.setState({error: true});
       }
   } else if (type === 'Submit' && step === 3) {
     this.setState((prevState, props) => {
-      return {currentStep: prevState.currentStep + 1};
+      return {error: false, currentStep: prevState.currentStep + 1};
     })
   } else if (type === 'Back') {
     console.log('we went back');
     this.setState((prevState, props) => {
-      return {currentStep: prevState.currentStep - 1};
+      return {error: false, currentStep: prevState.currentStep - 1};
     })
   }
 }
@@ -179,7 +185,7 @@ changeStepHandler = (type, step) => {
   render() {
     return (
       <div className="App">
-        <ContactBox userInfo={this.state.userInfo} currentStep={this.state.currentStep} changedInfo={this.grabInputHandler} changedStep={this.changeStepHandler} />
+        <ContactBox errorCondition={this.state.error} userInfo={this.state.userInfo} currentStep={this.state.currentStep} changedInfo={this.grabInputHandler} changedStep={this.changeStepHandler} />
       </div>
     );
   }
