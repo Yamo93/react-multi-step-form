@@ -10,11 +10,13 @@ import ContactBox from './components/ContactBox/ContactBox';
   * 
   * - the fourth step should be showing a success message. => DONE
   * - the Back button should have a special color (orangish) => DONE
-  * - add an error message if user tries to continue without filling forms (with a set Interval maybe, plain red bold big-sized text at the top) => DONE
+  * - add an error message if user tries to continue without filling forms (plain red bold big-sized text at the top) => DONE
   * add validation so that it cannot continue without all fields filled in => DONE :D
+  * add step tracker => DONE 100% :D
+  * add some simple responsivity for the smaller screens
   * 
   * SUGGESTIONS:
-  * - add Firebase to the backend so the data is really submitted and presented
+  * - add Firebase to the backend so the data is really submitted and presented, add a spinner when submitting it.
   * - third step should just be confirmation (do you want to submit the following data to the database basically...)
   * - then the fourth step should actually be grabbed from the Firebase. and the data should be returned to the user, with a success message saying that the data was successfully persisted in the backend
   * - maybe add some "step tracking" like 1/3, 2/3 which changes,so the user knows where s/he is. it would be nice if it could be UI-friendly, like having a cool "line with circles" that get filled as the user turns the page

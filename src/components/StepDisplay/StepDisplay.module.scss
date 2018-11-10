@@ -1,0 +1,65 @@
+.Track {
+    width: 100%;
+    min-width: 300px;
+    height: 2px;
+    background-color: rgba(0, 0, 0, .3);
+    margin-top: 10px;
+    margin-bottom: 60px;
+    position: relative;
+}
+
+.Step1, .Step2, .Step3, .Step4 {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: .8px solid rgba(0, 0, 0, .3);
+    background-color: #FFF;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);    
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: all .6s;
+
+    &:before {
+        content: '';
+        font-size: 20px;
+        font-weight: 600;
+        color: teal;
+    }
+}
+
+.Step1 {
+    left: 0;
+    &:before {
+        content: '1';
+    }
+}
+
+.Step4 {
+    right: 0;
+    &:before {
+        content: '4';
+    }
+}
+
+.Step2 {
+    left: 30%;
+    &:before {
+        content: '2';
+    }
+}
+.Step3 {
+    right: 30%;
+    &:before {
+        content: '3';
+    }
+}
+
+.Active {
+    background-color: teal;
+    &:before {
+        color: #FFF;
+    }
+}
