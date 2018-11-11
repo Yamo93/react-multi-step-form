@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
 import ContactBox from './components/ContactBox/ContactBox';
+import axios from './axios-userdata';
 
  /**
   * TODOS:
@@ -18,9 +19,9 @@ import ContactBox from './components/ContactBox/ContactBox';
   * 
   * SUGGESTIONS:
   * - add Firebase to the backend so the data is really submitted and presented, add a spinner when submitting it.
-  * - third step should just be confirmation (do you want to submit the following data to the database basically...)
+  * - third step should just be confirmation (do you want to submit the following data to the database basically...) => DONE
   * - then the fourth step should actually be grabbed from the Firebase. and the data should be returned to the user, with a success message saying that the data was successfully persisted in the backend
-  * - maybe add some "step tracking" like 1/3, 2/3 which changes,so the user knows where s/he is. it would be nice if it could be UI-friendly, like having a cool "line with circles" that get filled as the user turns the page
+  * - maybe add some "step tracking" like 1/3, 2/3 which changes,so the user knows where s/he is. it would be nice if it could be UI-friendly, like having a cool "line with circles" that get filled as the user turns the page => DONE
   * 
   */
 
@@ -35,7 +36,9 @@ class App extends Component {
       profession: ''
     }, 
     currentStep: 1, 
-    error: false
+    error: false, 
+    loading: false, 
+    infoID: null
   };
 
   grabInputHandler = (event) => {
@@ -154,8 +157,29 @@ changeStepHandler = (type, step) => {
       }
   } else if (type === 'Submit' && step === 3) {
     this.setState((prevState, props) => {
-      return {error: false, currentStep: prevState.currentStep + 1};
+      return {error: false, loading: true, currentStep: prevState.currentStep + 1};
     })
+
+    // Send Post Request to Backend
+      const info = {
+          name: this.state.userInfo.name, 
+          email: this.state.userInfo.email, 
+          password: this.state.userInfo.password, 
+          country: this.state.userInfo.country, 
+          city: this.state.userInfo.city, 
+          profession: this.state.userInfo.profession
+      }
+
+      axios.post('/userinfo.json', info)
+      .then(response => {
+        console.log(response);
+        this.setState({loading: false, infoID: response.data.name});
+      })
+      .catch(error => {
+        console.log(error);
+        this.setState({loading: false});
+      });
+
   } else if (type === 'Back') {
     console.log('we went back');
     this.setState((prevState, props) => {
@@ -168,7 +192,7 @@ changeStepHandler = (type, step) => {
   render() {
     return (
       <div className="App">
-        <ContactBox errorCondition={this.state.error} userInfo={this.state.userInfo} currentStep={this.state.currentStep} changedInfo={this.grabInputHandler} changedStep={this.changeStepHandler} />
+        <ContactBox infoID={this.state.infoID} loadingCondition={this.state.loading} errorCondition={this.state.error} userInfo={this.state.userInfo} currentStep={this.state.currentStep} changedInfo={this.grabInputHandler} changedStep={this.changeStepHandler} />
       </div>
     );
   }

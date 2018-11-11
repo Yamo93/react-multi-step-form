@@ -10,7 +10,7 @@ const contactBox = (props) => {
             <p className={styles.contact__desc}>Please fill in this multi-step form for registration:</p>
             {/* Place for step display */}
             <StepDisplay currentStep={props.currentStep} />
-        <Form error={props.errorCondition} userInfo={props.userInfo} changedInfo={props.changedInfo} changedStep={props.changedStep} currentStep={props.currentStep} />
+        <Form infoID={props.infoID} loadingCondition={props.loadingCondition} error={props.errorCondition} userInfo={props.userInfo} changedInfo={props.changedInfo} changedStep={props.changedStep} currentStep={props.currentStep} />
         </div>
     );
 };

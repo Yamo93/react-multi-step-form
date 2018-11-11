@@ -2,13 +2,28 @@ import React, { Component, Fragment } from 'react';
 import styles from './Form.module.scss';
 import Wrapper from '../Wrapper/Wrapper';
 import Button from '../Button/Button';
+import Loader from '../Loader/Loader';
+import axios from '../../axios-userdata';
 
 class Form extends Component {
     state = {
-        name: '', 
-        email: '',
-        password: ''
+        retrievedData: null, 
+        finishedLoading: false
     };
+
+    componentDidUpdate() {
+        if (this.props.infoID) {
+            if (!this.state.finishedLoading && (!this.state.retrievedData || (this.state.retrievedData && this.state.retrievedData.name !== this.props.infoID))) {
+                let ID = this.props.infoID;
+                console.log(ID);
+                axios.get('/userinfo.json')
+                .then(response => {
+                    this.setState({retrievedData: response.data[ID], finishedLoading: true}); // this causes an infinite loop
+                    console.log(this.state.retrievedData);
+                });
+            }
+        }
+    }
 
     render () {
         let errorMessage = null;
@@ -102,12 +117,23 @@ class Form extends Component {
             }
 
             case (4): {
+                let name = null;
+                let email = null;
+                if (this.state.retrievedData) {
+                    name = this.state.retrievedData.name;
+                    email = this.state.retrievedData.email;
+                }
                 confirmation = (
                     <div style={{width: '100%'}}>
-                    <h1 style={{width: '100%', textAlign: 'center', transform: 'translateY(-90px)'}}>Your registration was successful :)</h1>
-                    <p style={{fontSize: '20px', width: '100%', textAlign: 'center', transform: 'translateY(-50px)'}}>We'll send you an email with the details.</p>
+                    <h1 style={{width: '100%', textAlign: 'center', transform: 'translateY(-90px)'}}>Welcome onboard, {name} <span>😉</span>!</h1>
+                    <p style={{fontSize: '20px', width: '100%', textAlign: 'center', transform: 'translateY(-50px)'}}>We'll send you an email to <strong>{email}</strong> with the details.</p>
                     </div>
                 );
+
+                if (this.props.loadingCondition) {
+                    confirmation = <Loader />;
+                }
+
                 buttons = null;
                 break;
             }
