@@ -19,7 +19,7 @@ class Form extends Component {
                 axios.get('/userinfo.json')
                 .then(response => {
                     this.setState({retrievedData: response.data[ID], finishedLoading: true}); // this causes an infinite loop
-                    console.log(this.state.retrievedData);
+                    this.props.loaded();
                 });
             }
         }
@@ -125,7 +125,7 @@ class Form extends Component {
                 }
                 confirmation = (
                     <div style={{width: '100%'}}>
-                    <h1 style={{width: '100%', textAlign: 'center', transform: 'translateY(-90px)'}}>Welcome onboard, {name} <span>😉</span>!</h1>
+                    <h1 style={{width: '100%', textAlign: 'center', transform: 'translateY(-90px)'}}>Welcome onboard, {name} <span role="img" aria-label="blinkingface">😉</span>!</h1>
                     <p style={{fontSize: '20px', width: '100%', textAlign: 'center', transform: 'translateY(-50px)'}}>We'll send you an email to <strong>{email}</strong> with the details.</p>
                     </div>
                 );

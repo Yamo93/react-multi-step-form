@@ -134,6 +134,11 @@ class App extends Component {
     }
 }
 
+finishLoadHandler = () => {
+  this.setState({loading: false});
+  console.log('loading has ended');
+}
+
 changeStepHandler = (type, step) => {
   if (type === 'Continue' && step === 1) {
     if (this.state.userInfo.name && 
@@ -173,7 +178,7 @@ changeStepHandler = (type, step) => {
       axios.post('/userinfo.json', info)
       .then(response => {
         console.log(response);
-        this.setState({loading: false, infoID: response.data.name});
+        this.setState({infoID: response.data.name});
       })
       .catch(error => {
         console.log(error);
@@ -192,7 +197,7 @@ changeStepHandler = (type, step) => {
   render() {
     return (
       <div className="App">
-        <ContactBox infoID={this.state.infoID} loadingCondition={this.state.loading} errorCondition={this.state.error} userInfo={this.state.userInfo} currentStep={this.state.currentStep} changedInfo={this.grabInputHandler} changedStep={this.changeStepHandler} />
+        <ContactBox infoID={this.state.infoID} loaded={this.finishLoadHandler} loadingCondition={this.state.loading} errorCondition={this.state.error} userInfo={this.state.userInfo} currentStep={this.state.currentStep} changedInfo={this.grabInputHandler} changedStep={this.changeStepHandler} />
       </div>
     );
   }
